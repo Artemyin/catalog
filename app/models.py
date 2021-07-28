@@ -1,4 +1,5 @@
 from app import db
+from flask_admin.contrib.sqla import ModelView
 
 class Address(db.Model):
     __tablename__ = 'address'
@@ -9,59 +10,63 @@ class Address(db.Model):
     entrance_id = db.relationship('Entrance', backref='address', lazy='dynamic')
     lamp_id = db.relationship('Lamp', backref='address', lazy='dynamic')
 
-    
+
+class AddressView(ModelView):
+    form_columns = ['id', 'street', 'building', 'entrance', 'lamp']  
+
+
 class Street(db.Model):
     __tablename__ = 'street'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
+    street_name = db.Column(db.String(100), unique=True, nullable=False)
     address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
  
     def __repr__(self):
-        return '<Street %r>' % (self.name) 
+        return '<Street %r>' % (self.street_name) 
 
-    def __init__(self, name=None):
-        self.name = name
+    def __init__(self, street_name=None):
+        self.street_name = street_name
         
 
 class Building(db.Model):
     __tablename__ = 'building'
 
     id = db.Column(db.Integer, primary_key=True)
-    number = db.Column(db.String(100), unique=True, nullable=False)
+    building_number = db.Column(db.String(100), unique=True, nullable=False)
     address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
     
     def __repr__(self):
         return '<Building %r>' % (self.number)
 
-    def __init__(self, number=None):
-        self.number = number
+    def __init__(self, building_number=None):
+        self.building_number = building_number
 
 
 class Entrance(db.Model):
     __tablename__ = 'entrance'
 
     id = db.Column(db.Integer, primary_key=True)
-    number = db.Column(db.Integer, unique=True, nullable=False)
+    entrance_number = db.Column(db.Integer, unique=True, nullable=False)
     address_id = db.Column(db.Integer, db.ForeignKey('address.id')) 
 
     def __repr__(self):
-        return '<Entrance %r>' % (self.number) 
+        return '<Entrance %r>' % (self.entrance_number) 
 
-    def __init__(self, number=None):
-        self.number = number
+    def __init__(self, entrance_number=None):
+        self.entrance_number = entrance_number
 
 
 class Lamp(db.Model):
     __tablename__ = "lamp"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
+    lamp_name = db.Column(db.String(100), unique=True, nullable=False)
     address_id = db.Column(db.Integer, db.ForeignKey('address.id')) 
 
     def __repr__(self):
-        return '<Lamp %r>' % (self.name) 
+        return '<Lamp %r>' % (self.lamp_name) 
 
-    def __init__(self, name=None):
-        self.name = name
+    def __init__(self, lamp_name=None):
+        self.lamp_name = lamp_name
 
