@@ -51,6 +51,7 @@ class Entrance(db.Model):
     def __init__(self, number=None):
         self.number = number
 
+
 class Lamp(db.Model):
     __tablename__ = "lamp"
 
@@ -63,3 +64,4 @@ class Lamp(db.Model):
 
     def __init__(self, name=None):
         self.name = name
+
