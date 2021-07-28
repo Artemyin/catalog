@@ -5,9 +5,9 @@ class Address(db.Model):
     __tablename__ = 'address'
 
     id = db.Column(db.Integer, primary_key=True)
-    street_id = db.relationship('Street', backref='address', lazy='dynamic')
-    building_id = db.relationship('Building', backref='address', lazy='dynamic')
-    entrance_id = db.relationship('Entrance', backref='address', lazy='dynamic')
+    street_id = db.Column(db.Integer, db.ForeignKey('street.id'))
+    building_id = db.Column(db.Integer, db.ForeignKey('building.id'))
+    entrance_id = db.Column(db.Integer, db.ForeignKey('entrance.id')) 
     lamp_id =  db.Column(db.Integer, db.ForeignKey('lamp.id')) 
 
 
@@ -20,8 +20,8 @@ class Street(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     street_name = db.Column(db.String(100), unique=True, nullable=False)
-    address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
- 
+    address_id = db.relationship('Address', backref='street', lazy='dynamic')
+     
     def __repr__(self):
         return '<Street %r>' % (self.street_name) 
 
@@ -34,7 +34,7 @@ class Building(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     building_number = db.Column(db.String(100), unique=True, nullable=False)
-    address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
+    address_id = db.relationship('Address', backref='street', lazy='dynamic')
     
     def __repr__(self):
         return '<Building %r>' % (self.number)
@@ -48,7 +48,7 @@ class Entrance(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     entrance_number = db.Column(db.Integer, unique=True, nullable=False)
-    address_id = db.Column(db.Integer, db.ForeignKey('address.id')) 
+    address_id = db.relationship('Address', backref='street', lazy='dynamic')
 
     def __repr__(self):
         return '<Entrance %r>' % (self.entrance_number) 
@@ -62,10 +62,8 @@ class Lamp(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     lamp_name = db.Column(db.String(100), unique=True, nullable=False)
-
     address_id = db.relationship('Address', backref='lamp', lazy='dynamic')
     
-
     def __repr__(self):
         return '<Lamp %r>' % (self.lamp_name) 
 
