@@ -8,11 +8,11 @@ class Address(db.Model):
     street_id = db.relationship('Street', backref='address', lazy='dynamic')
     building_id = db.relationship('Building', backref='address', lazy='dynamic')
     entrance_id = db.relationship('Entrance', backref='address', lazy='dynamic')
-    lamp_id = db.relationship('Lamp', backref='address', lazy='dynamic')
+    lamp_id =  db.Column(db.Integer, db.ForeignKey('lamp.id')) 
 
 
 class AddressView(ModelView):
-    form_columns = ['id', 'street', 'building', 'entrance', 'lamp']  
+    form_columns = ['id', 'street_id', 'building_id', 'entrance_id', 'lamp_id']  
 
 
 class Street(db.Model):
@@ -62,7 +62,9 @@ class Lamp(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     lamp_name = db.Column(db.String(100), unique=True, nullable=False)
-    address_id = db.Column(db.Integer, db.ForeignKey('address.id')) 
+
+    address_id = db.relationship('Address', backref='lamp', lazy='dynamic')
+    
 
     def __repr__(self):
         return '<Lamp %r>' % (self.lamp_name) 
