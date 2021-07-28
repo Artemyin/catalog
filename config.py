@@ -12,3 +12,5 @@ SECRET_KEY = 'SecretKeyForSessionSigning'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'app.db')
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 DATABASE_CONNECT_OPTIONS = {}
+
+FLASK_ADMIN_SWATCH = 'cerulean'
