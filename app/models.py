@@ -1,5 +1,6 @@
-from app import db
 from flask_admin.contrib.sqla import ModelView
+
+from app import db
 
 class Address(db.Model):
     __tablename__ = 'address'
