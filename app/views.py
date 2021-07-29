@@ -1,3 +1,4 @@
+"""
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
@@ -12,3 +13,4 @@ admin.add_view(ModelView(Street, db.session))
 admin.add_view(ModelView(Building, db.session))
 admin.add_view(ModelView(Entrance, db.session))
 admin.add_view(ModelView(Lamp, db.session))
+"""

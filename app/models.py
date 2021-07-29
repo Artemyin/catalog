@@ -12,10 +12,6 @@ class Address(db.Model):
     lamp_id =  db.Column(db.Integer, db.ForeignKey('lamp.id')) 
 
 
-class AddressView(ModelView):
-    form_columns = ['street', 'building', 'entrance', 'lamp']  
-
-
 class Street(db.Model):
     __tablename__ = 'street'
 
