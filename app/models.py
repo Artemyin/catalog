@@ -13,7 +13,7 @@ class Address(db.Model):
 
 
 class AddressView(ModelView):
-    form_columns = ['id', 'street_id', 'building_id', 'entrance_id', 'lamp_id']  
+    form_columns = ['street', 'building', 'entrance', 'lamp']  
 
 
 class Street(db.Model):
@@ -35,10 +35,10 @@ class Building(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     building_number = db.Column(db.String(100), unique=True, nullable=False)
-    address_id = db.relationship('Address', backref='street', lazy='dynamic')
+    address_id = db.relationship('Address', backref='building', lazy='dynamic')
     
     def __repr__(self):
-        return '<Building %r>' % (self.number)
+        return '<Building %r>' % (self.building_number)
 
     def __init__(self, building_number=None):
         self.building_number = building_number
@@ -49,7 +49,7 @@ class Entrance(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     entrance_number = db.Column(db.Integer, unique=True, nullable=False)
-    address_id = db.relationship('Address', backref='street', lazy='dynamic')
+    address_id = db.relationship('Address', backref='entrance', lazy='dynamic')
 
     def __repr__(self):
         return '<Entrance %r>' % (self.entrance_number) 
