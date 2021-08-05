@@ -9,7 +9,29 @@ class Address(db.Model):
     street_id = db.Column(db.Integer, db.ForeignKey('street.id'))
     building_id = db.Column(db.Integer, db.ForeignKey('building.id'))
     entrance_id = db.Column(db.Integer, db.ForeignKey('entrance.id')) 
-    lamp_id =  db.Column(db.Integer, db.ForeignKey('lamp.id')) 
+    lamp_id =  db.Column(db.Integer, db.ForeignKey('lamp.id'))
+
+
+    def __init__(self, street_name, building_num, entrance_num):
+        street = Street.query.filter_by(street_name=street_name).first()
+        if not street:
+            street = Street(street_name=street_name)
+            db.session.add(street)
+        self.street_id = street.id
+
+        building = Building.query.filter_by(building_number=building_num).first()
+        if not building:
+            building = Building(building_number=building_num)
+            db.session.add(building)
+        self.building_id = building.id
+
+        entrance = Entrance.query.filter_by(entrance_number=entrance_num).first()
+        if not entrance:
+            entrance = Entrance(entrance_number=entrance_num)
+            db.session.add(entrance)
+        self.entrance_id = entrance.id
+        db.session.commit()
+        # addr = Address(street=street, building=building, entrance=entrance)
 
 
 class Street(db.Model):
@@ -22,7 +44,7 @@ class Street(db.Model):
     def __repr__(self):
         return '<Street %r>' % (self.street_name) 
 
-    def __init__(self, street_name=None):
+    def __init__(self, street_name):
         self.street_name = street_name
         
 
@@ -36,7 +58,7 @@ class Building(db.Model):
     def __repr__(self):
         return '<Building %r>' % (self.building_number)
 
-    def __init__(self, building_number=None):
+    def __init__(self, building_number):
         self.building_number = building_number
 
 
@@ -50,7 +72,7 @@ class Entrance(db.Model):
     def __repr__(self):
         return '<Entrance %r>' % (self.entrance_number) 
 
-    def __init__(self, entrance_number=None):
+    def __init__(self, entrance_number):
         self.entrance_number = entrance_number
 
 
@@ -64,6 +86,6 @@ class Lamp(db.Model):
     def __repr__(self):
         return '<Lamp %r>' % (self.lamp_name) 
 
-    def __init__(self, lamp_name=None):
+    def __init__(self, lamp_name):
         self.lamp_name = lamp_name
 
