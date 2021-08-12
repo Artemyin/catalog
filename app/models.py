@@ -89,3 +89,21 @@ class Lamp(db.Model):
     def __init__(self, lamp_name):
         self.lamp_name = lamp_name
 
+
+roles_users_table = db.Table('roles_users',
+                            db.Column('users_id', db.Integer(), db.ForeignKey('users.id')),
+                            db.Column('roles_id', db.Integer(), db.ForeignKey('roles.id')))
+
+# Define models for the users and user roles
+class Roles(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
+
+class Users(db.Model, UserMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    email = db.Column(db.String(255), unique=True)
+    password = db.Column(db.String(80))
+    active = db.Column(db.Boolean())
+
+    roles = db.relationship('Roles', secondary=roles_users_table, backref='user', lazy=True)
