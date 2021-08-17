@@ -1,91 +1,99 @@
-from flask_admin.contrib.sqla import ModelView
-
+from os import name
 from app import db
 
 class Address(db.Model):
     __tablename__ = 'address'
 
     id = db.Column(db.Integer, primary_key=True)
+
     street_id = db.Column(db.Integer, db.ForeignKey('street.id'))
+    street = db.relationship('Street', backref=db.backref('street', lazy='subquery'))
+
     building_id = db.Column(db.Integer, db.ForeignKey('building.id'))
+    building = db.relationship('Building', backref=db.backref('building', lazy='subquery'))
+    
     entrance_id = db.Column(db.Integer, db.ForeignKey('entrance.id')) 
+    entrance = db.relationship('Entrance', backref=db.backref('entrance', lazy='subquery'))
+
     lamp_id =  db.Column(db.Integer, db.ForeignKey('lamp.id'))
+    lamp = db.relationship('Lamp', backref=db.backref('lamp', lazy='subquery'))
 
 
-    def __init__(self, street_name, building_num, entrance_num):
-        street = Street.query.filter_by(street_name=street_name).first()
+    def __init__(self, street_name, building_name, entrance_name):
+        street = Street.query.filter_by(name=street_name).first()
         if not street:
-            street = Street(street_name=street_name)
+            street = Street(name=street_name)
             db.session.add(street)
         self.street_id = street.id
 
-        building = Building.query.filter_by(building_number=building_num).first()
+        building = Building.query.filter_by(name=building_name).first()
         if not building:
-            building = Building(building_number=building_num)
+            building = Building(name=building_name)
             db.session.add(building)
         self.building_id = building.id
 
-        entrance = Entrance.query.filter_by(entrance_number=entrance_num).first()
+        entrance = Entrance.query.filter_by(name=entrance_name).first()
         if not entrance:
-            entrance = Entrance(entrance_number=entrance_num)
+            entrance = Entrance(name=entrance_name)
             db.session.add(entrance)
         self.entrance_id = entrance.id
+        
         db.session.commit()
-        # addr = Address(street=street, building=building, entrance=entrance)
+        
 
 
 class Street(db.Model):
     __tablename__ = 'street'
 
     id = db.Column(db.Integer, primary_key=True)
-    street_name = db.Column(db.String(100), unique=True, nullable=False)
-    address_id = db.relationship('Address', backref='street', lazy='dynamic')
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    
      
     def __repr__(self):
-        return '<Street %r>' % (self.street_name) 
+        return f'{self.name}'
 
-    def __init__(self, street_name):
-        self.street_name = street_name
+    def __init__(self, name):
+        self.name = name
         
 
 class Building(db.Model):
     __tablename__ = 'building'
 
     id = db.Column(db.Integer, primary_key=True)
-    building_number = db.Column(db.String(100), unique=True, nullable=False)
-    address_id = db.relationship('Address', backref='building', lazy='dynamic')
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    
     
     def __repr__(self):
-        return '<Building %r>' % (self.building_number)
+        return f'{self.name}'
 
-    def __init__(self, building_number):
-        self.building_number = building_number
+    def __init__(self, name):
+        self.name = name
 
 
 class Entrance(db.Model):
     __tablename__ = 'entrance'
 
     id = db.Column(db.Integer, primary_key=True)
-    entrance_number = db.Column(db.Integer, unique=True, nullable=False)
-    address_id = db.relationship('Address', backref='entrance', lazy='dynamic')
+    name = db.Column(db.Integer, unique=True, nullable=False)
+    
 
     def __repr__(self):
-        return '<Entrance %r>' % (self.entrance_number) 
+        return f'{self.name}'
 
-    def __init__(self, entrance_number):
-        self.entrance_number = entrance_number
+    def __init__(self, name):
+        self.name = name
 
 
 class Lamp(db.Model):
     __tablename__ = "lamp"
 
     id = db.Column(db.Integer, primary_key=True)
-    lamp_name = db.Column(db.String(100), unique=True, nullable=False)
-    address_id = db.relationship('Address', backref='lamp', lazy='dynamic')
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    
     
     def __repr__(self):
-        return '<Lamp %r>' % (self.lamp_name) 
+        return f'{self.name}'
 
-    def __init__(self, lamp_name):
-        self.lamp_name = lamp_name
+    def __init__(self, name):
+        self.name = name
 
