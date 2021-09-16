@@ -2,7 +2,15 @@
 
 I make a web site which is a catalog of somewhat linked to address
 in my case it is catalog of a lamps wich is instaled in the buldings.
-And you have an oportunity to watch lamps by address where they installed
+And you have an oportunity to watch lamps by address where they installed.
+
+User can access to admin panel by the link.
+There is three roles: user, admin, superuser.
+- user have access to watching(reading), searching, sorting address. 
+- admin have access to adding, edditing  address and lamps.
+- superuser have access to adding, edditing of all data, including users
+
+
 
 used libraries:
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
@@ -10,7 +18,10 @@ used libraries:
 - [Flask-Admin](https://flask-admin.readthedocs.io/en/latest/)
 - [Flask-Security](https://flask-security-too.readthedocs.io/en/stable/)
 
-The most dificult was.
+
+
+The most dificult was:
+
 after integration Flask-Alchemy and Flask Admin.
 I got posibility to watch and edit my models thru the admin panels.
 But for models wich consist mostly from fields related to another tables it was a problem with friendly user experience.
@@ -20,14 +31,17 @@ My approach was to do pocibility to edit table and add new records to related fi
 
 what i try to do:
 - I try to edit models, specifically Address table. 
-Added constructor by passing elements of the address as the arguments to the model class for easy creation of the model
+Added constructor by passing elements of the address as the arguments to the model class for easy creation of the model.
 
 what i want to try:
 - column_editable_list
 - [inline_models](https://flask-admin.readthedocs.io/en/v1.4.0/api/mod_contrib_sqla/#flask_admin.contrib.sqla.ModelView.inline_models)
+- Inline form editor
 - [anoter one description how to add this posibility](https://wordpressify.ru/2018/09/flask-admin-hacks-for-many-to-many-relationships/)
 - [anoter one description how to add this posibility](https://chase-seibert.github.io/blog/2015/09/25/flask-admin-list-edit-one-to-many.html)
 - [try to understand what is scaffolding](https://flask-admin.readthedocs.io/en/v1.4.0/advanced/#overriding-the-form-scaffolding)
+- edit_view
+- https://gist.github.com/DrecDroid/398a05e4945805bc09d1
 
 
 
