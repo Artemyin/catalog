@@ -19,7 +19,7 @@ After this only i will be able to create Address, thru choosing elements for my 
 My approach was to do pocibility to edit table and add new records to related fields by edit and add text right in the line of the editable table.
 
 what i try to do:
-I try to edit models, specifically Address table. 
+- I try to edit models, specifically Address table. 
 Added constructor by passing elements of the address as the arguments to the model class for easy creation of the model
 
 what i want to try:
