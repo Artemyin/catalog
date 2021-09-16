@@ -50,3 +50,4 @@ list of references:
 - [origin post on habr form creator of flask-admin](https://habr.com/ru/post/148765/)
 - [post about authorization](https://ploshadka.net/flask-delaem-avtorizaciju-na-sajjte/)
 - [anoter blog about integration admin and flask](https://russianblogs.com/article/37171301805/)
+- [deploying on heroku](https://realpython.com/flask-by-example-part-1-project-setup/)
