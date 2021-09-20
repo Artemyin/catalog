@@ -19,8 +19,9 @@ There is three roles: user, admin, superuser.
 - [Flask-Security](https://flask-security-too.readthedocs.io/en/stable/)
 
 
+## Problems in the project
 
-The most dificult was:
+### The most dificult was:
 
 after integration Flask-Alchemy and Flask Admin.
 I got posibility to watch and edit my models thru the admin panels.
@@ -29,11 +30,11 @@ In my case it was Address table. And i should to create first a street in Street
 After this only i will be able to create Address, thru choosing elements for my address from drop down list.
 My approach was to do pocibility to edit table and add new records to related fields by edit and add text right in the line of the editable table.
 
-what i try to do:
+### what i try to do:
 - I try to edit models, specifically Address table. 
 Added constructor by passing elements of the address as the arguments to the model class for easy creation of the model.
 
-what i want to try:
+### what i want to try:
 - column_editable_list
 - [inline_models](https://flask-admin.readthedocs.io/en/v1.4.0/api/mod_contrib_sqla/#flask_admin.contrib.sqla.ModelView.inline_models)
 - Inline form editor
@@ -42,8 +43,6 @@ what i want to try:
 - [try to understand what is scaffolding](https://flask-admin.readthedocs.io/en/v1.4.0/advanced/#overriding-the-form-scaffolding)
 - edit_view
 - https://gist.github.com/DrecDroid/398a05e4945805bc09d1
-
-
 
 
 ## list of references:
