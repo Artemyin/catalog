@@ -51,3 +51,6 @@ list of references:
 - [post about authorization](https://ploshadka.net/flask-delaem-avtorizaciju-na-sajjte/)
 - [anoter blog about integration admin and flask](https://russianblogs.com/article/37171301805/)
 - [deploying on heroku](https://realpython.com/flask-by-example-part-1-project-setup/)
+- [git branch](http://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
+- [git merge](http://git-scm.com/docs/git-merge)
+
