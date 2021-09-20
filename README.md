@@ -1,4 +1,4 @@
-# catalog
+# Catalog
 
 I make a web site which is a catalog of somewhat linked to address
 in my case it is catalog of a lamps wich is instaled in the buldings.
@@ -12,7 +12,7 @@ There is three roles: user, admin, superuser.
 
 
 
-used libraries:
+## Used libraries:
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
 - [Flask-Alchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
 - [Flask-Admin](https://flask-admin.readthedocs.io/en/latest/)
@@ -46,7 +46,7 @@ what i want to try:
 
 
 
-list of references:
+## list of references:
 - [origin post on habr form creator of flask-admin](https://habr.com/ru/post/148765/)
 - [post about authorization](https://ploshadka.net/flask-delaem-avtorizaciju-na-sajjte/)
 - [anoter blog about integration admin and flask](https://russianblogs.com/article/37171301805/)
