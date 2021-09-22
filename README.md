@@ -20,10 +20,12 @@ There is three roles: user, admin, superuser.
 
 
 ## To Do list
-- split configuration files and move environmental variables (dev, stage, prod)
+- ~~split configuration files and move environmental variables (dev, stage, prod)~~
 - organize git repo according to heroku
 - set permissions due to roles
 - design home page, make menu panel always visible
+
+
 ## Problems in the project
 
 ### The most dificult was:
