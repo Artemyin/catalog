@@ -47,7 +47,9 @@ class MyModelView(ModelView):
 # Flask views
 @app.route('/')
 def index():
-    return render_template('index.html')
+    config = app.config.get("NAME")
+    return render_template('index.html', config=config)
+
 
 # Create admin
 admin = Admin(
