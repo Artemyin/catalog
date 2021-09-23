@@ -25,7 +25,7 @@ security = Security(app, user_datastore)
 
 
 # Create customized model view class
-class MyModelView(ModelView):
+class SuperuserModelView(ModelView):
     def is_accessible(self):
         return (current_user.is_active and
                 current_user.is_authenticated and
@@ -44,6 +44,49 @@ class MyModelView(ModelView):
                 # login
                 return redirect(url_for('security.login', next=request.url))
 
+
+class EditorModelView(SuperuserModelView):
+    def is_accessible(self):
+        return (current_user.is_active and
+                current_user.is_authenticated and
+                current_user.has_role('editor')
+        )
+
+
+class UserModelView(SuperuserModelView):
+    def is_accessible(self):
+        """
+        return (current_user.is_active and
+                current_user.is_authenticated and
+                current_user.has_role('user')
+        )
+        """
+         # set accessibility...
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+        
+        # roles with ascending permissions...
+        if current_user.has_role('superuser'):
+            self.can_create = True
+            self.can_edit = True
+            self.can_delete = True
+            return True
+            
+        if current_user.has_role('editor'):
+            self.can_create = True
+            self.can_edit = True
+            self.can_delete = True
+            return True
+        
+        if current_user.has_role('user'):
+            self.can_create = False
+            self.can_edit = False
+            self.can_delete = False
+            return True
+        return False
+        
+        
+
 # Flask views
 @app.route('/')
 def index():
@@ -60,8 +103,8 @@ admin = Admin(
 )
 
 # Add model views
-admin.add_view(MyModelView(Role, db.session))
-admin.add_view(MyModelView(User, db.session))
+admin.add_view(SuperuserModelView(Role, db.session))
+admin.add_view(SuperuserModelView(User, db.session))
 
 # define a context processor for merging flask-admin's template context into the
 # flask-security views.
@@ -75,8 +118,8 @@ def security_context_processor():
     )
 
 
-admin.add_view(ModelView(Address, db.session))
-admin.add_view(ModelView(Street, db.session))
-admin.add_view(ModelView(Building, db.session))
-admin.add_view(ModelView(Entrance, db.session))
-admin.add_view(ModelView(Lamp, db.session))
+admin.add_view(UserModelView(Address, db.session))
+admin.add_view(EditorModelView(Street, db.session))
+admin.add_view(EditorModelView(Building, db.session))
+admin.add_view(EditorModelView(Entrance, db.session))
+admin.add_view(EditorModelView(Lamp, db.session))

@@ -14,17 +14,26 @@ def build_sample_db():
     with app.app_context():
         user_role = Role(name='user')
         super_user_role = Role(name='superuser')
+        editor_user_role = Role(name='editor')
         db.session.add(user_role)
         db.session.add(super_user_role)
+        db.session.add(editor_user_role)
         db.session.commit()
 
-        test_user = user_datastore.create_user(
+        test_super_user = user_datastore.create_user(
             first_name='Admin',
             email='admin',
             password=encrypt_password('admin'),
-            roles=[user_role, super_user_role]
+            roles=[user_role, editor_user_role, super_user_role]
         )
 
+        test_editor_user = user_datastore.create_user(
+            first_name='Editor',
+            email='editor',
+            password=encrypt_password('editor'),
+            roles=[user_role, editor_user_role]
+        )
+        
         first_names = [
             'Harry', 'Amelia', 'Oliver', 'Jack', 'Isabella', 'Charlie', 'Sophie', 'Mia',
             'Jacob', 'Thomas', 'Emily', 'Lily', 'Ava', 'Isla', 'Alfie', 'Olivia', 'Jessica',
