@@ -60,3 +60,4 @@ Added constructor by passing elements of the address as the arguments to the mod
 - [git branch](http://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
 - [git merge](http://git-scm.com/docs/git-merge)
 
+- [user authentication and role management - database design](https://www.codestudyblog.com/sfb2002b1/0225224700.html)
